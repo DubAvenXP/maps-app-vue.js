@@ -1,5 +1,8 @@
 <template>
+    
     <map-view></map-view>
+    <search-bar></search-bar>
+    <my-location-btn></my-location-btn>
 </template>
 
 <script lang="ts">
@@ -11,6 +14,12 @@ export default defineComponent({
     components: {
         MapView: defineAsyncComponent(
             () => import("@/components/mapview/MapView.vue")
+        ),
+        MyLocationBtn: defineAsyncComponent(
+            () => import("@/components/my-location-btn/MyLocationBtn.vue")
+        ),
+        SearchBar: defineAsyncComponent(
+            () => import("@/components/search-bar/SearchBar.vue")
         ),
     },
     setup() {

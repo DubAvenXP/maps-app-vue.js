@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { usePlacesStore } from "@/composables";
 import Mapboxgl from "mapbox-gl";
 import { defineComponent, onMounted, ref, watch } from "vue";
+import { useMapStore } from '../../composables/useMapStore';
 
 export default defineComponent({
     name: "MapView",
     setup() {
         const mapElement = ref<HTMLDivElement>();
         const { isUserLocationReady, userLocation } = usePlacesStore();
+        const { setMap } = useMapStore();
 
         const initMap = async () => {
             if (!mapElement.value) throw new Error("Map element not found");
@@ -39,6 +42,7 @@ export default defineComponent({
                 .addTo(map);
 
             //Set to vuex
+            setMap(map);
 
         };
 

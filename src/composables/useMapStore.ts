@@ -15,5 +15,7 @@ export const useMapStore = () => {
 
         //Mutations
         setMap: (map: Mapboxgl.Map) => store.commit('map/setMap', map),
+        //Getters
+        isMapReady: computed<boolean>(() => store.getters['map/isMapReady']),
     };
 };
