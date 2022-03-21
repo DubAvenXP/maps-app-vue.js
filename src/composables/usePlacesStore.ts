@@ -18,6 +18,6 @@ export const usePlacesStore = () => {
         userLocation: computed(() => store.state.places.userLocation),
         isUserLocationReady: computed(() => store.getters['places/isUserLocationReady']),
         searchPlacesByTerm: (query = '') => store.dispatch('places/searchPlacesByTerm', query),
-
+        
     };
 };
