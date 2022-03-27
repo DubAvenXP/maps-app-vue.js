@@ -1,35 +1,30 @@
-<script lang="ts" src="./SearchResults"/>
+<script lang="ts" src="./SearchResults" />
 
 <template>
-    <ul class="list-group mt-3">
-        <li class="list-group-item list-group-item-action text-start">
-            <h5>Nombre del lugar</h5>
+    <div v-if="isLoadingPlaces" class="alert alert-primary text-center">
+        <h5>Cargando</h5>
+        <span>Espere por favor</span>
+    </div>
+    <ul v-else-if="places.length > 0" class="list-group mt-3">
+        <li
+            v-for="place in places"
+            :key="place.id"
+            :class="{ 'active': place.id === activePlace}"
+            @click="onPlaceClicked(place)"
+            class="list-group-item list-group-item-action text-start"
+        >
+            <h5>{{ place.text }}</h5>
             <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Impedit illo rerum deleniti laboriosam!
+                {{ place.place_name }}
             </p>
             <div align="right">
-                <button class="btn btn-outline-primary btn-sm">Direcciones</button>
-            </div>
-        </li>
-        <li class="list-group-item list-group-item-action text-start">
-            <h5>Nombre del lugar</h5>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Impedit illo rerum deleniti laboriosam!
-            </p>
-            <div align="right">
-                <button class="btn btn-outline-primary btn-sm">Direcciones</button>
-            </div>
-        </li>
-        <li class="list-group-item list-group-item-action text-start">
-            <h5>Nombre del lugar</h5>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Impedit illo rerum deleniti laboriosam!
-            </p>
-            <div align="right">
-                <button class="btn btn-outline-primary btn-sm">Direcciones</button>
+                <button
+                    class="btn btn-outline-primary btn-sm"
+                    :class="(place.id === activePlace) ? 'btn-outline-light' : 'btn-outline-primary'"
+                    @click.self="getRouteDirections(place)"
+                >
+                    Direcciones
+                </button>
             </div>
         </li>
     </ul>

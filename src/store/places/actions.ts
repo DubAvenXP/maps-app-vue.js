@@ -1,6 +1,8 @@
 import { ActionTree } from "vuex";
 import { PlacesState } from "./state";
 import { StateInterface } from "../index";
+import { searchApi } from "@/apis";
+import { Feature, PlacesResponse } from "@/interfaces/places";
 
 const actions: ActionTree<PlacesState, StateInterface> = {
     getInitialLocation({ commit }) {
@@ -18,8 +20,26 @@ const actions: ActionTree<PlacesState, StateInterface> = {
         );
     },
     // Todo: colocar el valor de retorno
-    async searchPlacesByTerm({ commit, state }, query: string) {
-        console.log("vuex", query);
+    async searchPlacesByTerm({ commit, state }, query: string): Promise<Feature[]> {
+        
+        if (query.length === 0) {
+            commit('setPlaces', []);
+            return [];
+        }
+        
+        if (!state.userLocation) throw new Error("No user location available");
+
+        commit("setIsLoadingPlaces");
+
+        const reponse = await searchApi.get<PlacesResponse>(`/${query}.json`, {
+            params: {
+                proximity: state.userLocation?.join(',')
+            }
+        })
+
+        commit('setPlaces', reponse.data.features);
+
+        return reponse.data.features;
     },
 };
 

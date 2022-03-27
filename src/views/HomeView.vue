@@ -3,6 +3,7 @@
     <map-view></map-view>
     <search-bar></search-bar>
     <my-location-btn></my-location-btn>
+    <trip-details></trip-details>
 </template>
 
 <script lang="ts">
@@ -20,6 +21,9 @@ export default defineComponent({
         ),
         SearchBar: defineAsyncComponent(
             () => import("@/components/search-bar/SearchBar.vue")
+        ),
+        TripDetails: defineAsyncComponent(
+            () => import("@/components/trip-details/TripDetails.vue")
         ),
     },
     setup() {
